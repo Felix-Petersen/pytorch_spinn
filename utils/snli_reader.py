@@ -4,6 +4,10 @@ import torch
 import jsonlines
 
 
+left_seperator = '`'
+right_seperator = '?'
+
+
 class SNLIReader(object):
 
     def __init__(self, data_path, token_vocab, trans_vocab, label_vocab,
@@ -25,9 +29,9 @@ class SNLIReader(object):
         word_tokens = []
         transition = []
         for parse_token in parse_tokens:
-            if parse_token == ')':
+            if parse_token == right_seperator:
                 transition.append('REDUCE')
-            elif parse_token == '(':
+            elif parse_token == left_seperator:
                 continue
             else:
                 transition.append('SHIFT')
