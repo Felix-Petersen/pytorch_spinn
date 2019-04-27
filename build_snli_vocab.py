@@ -3,7 +3,6 @@ import os
 from collections import Counter
 
 import jsonlines
-from nltk import word_tokenize
 
 
 def main():
@@ -20,8 +19,13 @@ def main():
     for obj in reader:
         pre_sentence = obj['sentence1']
         hyp_sentence = obj['sentence2']
-        pre_tokens = word_tokenize(pre_sentence.lower())
-        hyp_tokens = word_tokenize(hyp_sentence.lower())
+        # Modified:
+        # pre_tokens = word_tokenize(pre_sentence.lower())
+        # hyp_tokens = word_tokenize(hyp_sentence.lower())
+        # pre_tokens = word_tokenize(pre_sentence)
+        # hyp_tokens = word_tokenize(hyp_sentence)
+        pre_tokens = pre_sentence.split()
+        hyp_tokens = hyp_sentence.split()
         token_counter.update(pre_tokens)
         token_counter.update(hyp_tokens)
     most_freq_tokens = token_counter.most_common(vocab_size)

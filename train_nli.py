@@ -164,7 +164,7 @@ def main():
                 loss.backward()
                 clip_grad_norm(parameters=model.parameters(), max_norm=5)
                 optimizer.step()
-            logging.debug(f'{loss.data[0]} {label_accuracy.data[0]}')
+            logging.debug(f'{loss.item()} {label_accuracy.item()}')
             return loss, label_accuracy
 
         train_summary = {'loss_sum': 0.0, 'accuracy_sum': 0.0, 'denom': 0}
@@ -172,9 +172,9 @@ def main():
         for iter_cnt, train_batch in enumerate(train_batch_it, 1):
             global_iter_cnt += 1
             train_loss, train_accuracy = run_iter(batch=train_batch, train=True)
-            plot_summary(loss=train_loss, accuracy=train_accuracy, train=True)
-            train_summary['loss_sum'] += train_loss.data[0]
-            train_summary['accuracy_sum'] += train_accuracy.data[0]
+            plot_summary(loss=train_loss.item(), accuracy=train_accuracy.item(), train=True)
+            train_summary['loss_sum'] += train_loss.item()
+            train_summary['accuracy_sum'] += train_accuracy.item()
             train_summary['denom'] += 1
             if iter_cnt % validate_every == 0:
                 cur_progress = (
@@ -187,8 +187,8 @@ def main():
                 for valid_batch in valid_batch_it:
                     valid_loss, valid_accuracy = run_iter(batch=valid_batch,
                                                           train=False)
-                    valid_summary['loss_sum'] += valid_loss.data[0]
-                    valid_summary['accuracy_sum'] += valid_accuracy.data[0]
+                    valid_summary['loss_sum'] += valid_loss.item()
+                    valid_summary['accuracy_sum'] += valid_accuracy.item()
                     valid_summary['denom'] += 1
                 valid_loss = valid_summary['loss_sum'] / valid_summary['denom']
                 valid_accuracy = (

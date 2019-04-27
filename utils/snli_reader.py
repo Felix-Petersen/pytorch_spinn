@@ -4,6 +4,7 @@ import torch
 import jsonlines
 
 
+# Modified:
 left_seperator = '`'
 right_seperator = '?'
 
@@ -25,7 +26,9 @@ class SNLIReader(object):
 
     @staticmethod
     def _convert_parse(parse):
-        parse_tokens = parse.lower().split()
+        # Modified:
+        # parse_tokens = parse.lower().split()
+        parse_tokens = parse.split()
         word_tokens = []
         transition = []
         for parse_token in parse_tokens:

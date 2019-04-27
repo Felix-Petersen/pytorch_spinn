@@ -240,7 +240,7 @@ class SPINN(nn.Module):
         """
 
         batch_size = tokens.size(0)
-        if trans:
+        if trans is not None:
             num_trans = trans.size(1)
         else:
             num_trans = tokens.size(1)*2 - 1
@@ -264,7 +264,7 @@ class SPINN(nn.Module):
                 tracker_state=tracker_state)
             trans_logits_t = self.trans_linear(tracking)
             trans_logits.append(trans_logits_t)
-            if trans:
+            if trans is not None:
                 action_t = trans[:, t]
             else:
                 action_t = trans_logits_t.max(1)[1].squeeze(1)

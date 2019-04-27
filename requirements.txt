@@ -1,0 +1,4 @@
+torch
+nltk
+jsonlines
+visdom==0.1.7
